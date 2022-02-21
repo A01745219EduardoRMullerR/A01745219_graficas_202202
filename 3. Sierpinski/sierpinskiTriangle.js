@@ -35,7 +35,6 @@ function getMidPoints(pointArray){
     let v1 = pointArray[0] //Obteniendo los 3 vertices de la forma [x, y]
     let v2 = pointArray[1]
     let v3 = pointArray[2]
-    //console.log("Vertices:\n" + v1 + v2 + v3 + "\n---------\n")
 
     midPointA = Array((v1[0]+v2[0])/2, (v1[1]+v2[1])/2)
     midPointB = Array((v2[0]+v3[0])/2, (v2[1]+v3[1])/2)
@@ -47,11 +46,11 @@ function getMidPoints(pointArray){
 
 function recursiveFunc(ctx, pointArr, steps){
     let triangle = new Triangle(pointArr).draw(ctx)
-    //console.log('Aqui llego, se dibujo?')
+
     if(steps > 0){
-        console.log("Steps: " + steps)
+
         let newPointArray = getMidPoints(pointArr)
-        console.log("Arrays: \nOriginal: [" + pointArr + "]\nMid: [" + newPointArray + "]")
+
         recursiveFunc(ctx, [pointArr[0], newPointArray[0], newPointArray[2]], steps-1)
         recursiveFunc(ctx, [pointArr[1], newPointArray[0], newPointArray[1]], steps-1)
         recursiveFunc(ctx, [pointArr[2], newPointArray[1], newPointArray[2]], steps-1)
@@ -70,7 +69,7 @@ function sliderEvent(canvas, ctx, pointArr){
 }
 
 function main(){
-    let pointArr = [[200, 100],[100, 300],[300, 300]]
+    let pointArr = [[200, 100],[100, 300],[300, 300]] //Coordenadas del primer triangulo
     console.log("The original pointArray: [" + pointArr + "]")
     // To draw something on a <canvas>, you must first retrieve the <canvas> element from the HTML file
     let canvas = document.getElementById("htmlCanvas");
@@ -86,6 +85,9 @@ function main(){
         console.log('Failed to get context.')
         return
     }
+
+    sliderEvent(canvas, ctx, pointArr)
+
     //Ejemplo de como se dibuja
     /*ctx.beginPath()
     ctx.moveTo(200, 100)
@@ -96,6 +98,6 @@ function main(){
 
     //drawTriangle(ctx, pointArr) //Testing function
 
-    sliderEvent(canvas, ctx, pointArr)
+
 
 }
