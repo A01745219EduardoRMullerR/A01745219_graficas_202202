@@ -1,4 +1,21 @@
-function drawTriangle(ctx, pointArr){ //Funcion para dibujar triangulo individualmente
+class Triangle{
+    constructor(pointArr){
+        this.v1 = pointArr[0] //Obteniendo los 3 vertices de la forma [x, y]
+        this.v2 = pointArr[1]
+        this.v3 = pointArr[2]
+    }
+
+    draw(ctx){
+        ctx.beginPath()
+        ctx.moveTo(this.v1[0], this.v1[1])
+        ctx.lineTo(this.v2[0], this.v2[1])
+        ctx.lineTo(this.v3[0], this.v3[1])
+        ctx.closePath()
+        ctx.stroke()
+    }
+}
+
+/*function drawTriangle(ctx, pointArr){ //Funcion para dibujar triangulo individualmente
     let v1 = pointArr[0] //Obteniendo los 3 vertices de la forma [x, y]
     let v2 = pointArr[1]
     let v3 = pointArr[2]
@@ -11,7 +28,7 @@ function drawTriangle(ctx, pointArr){ //Funcion para dibujar triangulo individua
     ctx.closePath()
     ctx.stroke()
 
-}
+}*/
 
 function getMidPoints(pointArray){
     
@@ -29,7 +46,7 @@ function getMidPoints(pointArray){
 }
 
 function recursiveFunc(ctx, pointArr, steps){
-    drawTriangle(ctx, pointArr)
+    let triangle = new Triangle(pointArr).draw(ctx)
     //console.log('Aqui llego, se dibujo?')
     if(steps > 0){
         console.log("Steps: " + steps)
