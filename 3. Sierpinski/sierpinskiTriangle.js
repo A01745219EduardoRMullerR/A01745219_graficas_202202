@@ -11,6 +11,7 @@ class Triangle{
         ctx.lineTo(this.v2[0], this.v2[1])
         ctx.lineTo(this.v3[0], this.v3[1])
         ctx.closePath()
+        ctx.strokeStyle = 'green'
         ctx.stroke()
     }
 }
