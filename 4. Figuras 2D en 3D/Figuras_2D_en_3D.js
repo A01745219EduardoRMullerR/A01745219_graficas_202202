@@ -175,6 +175,8 @@ function draw(gl, shaderProgram, obj)
 // WebGL drawing is done with primitives — different types of objects to draw. WebGL primitive types include triangles, points, and lines. 
 // Triangles, the most commonly used primitive, are actually accessible in two different forms: as triangle sets (arrays of triangles) and triangle strips (described shortly). 
 // Primitives use arrays of data, called buffers, which define the positions of the vertices to be drawn.
+
+//-------Codigo usado del ejemplo "Box-Triangle"
 function createSquare(gl) 
 {
     let vertexBuffer;
@@ -211,7 +213,7 @@ function createTriangle(gl)
     return triangle;
 } 
 
-//Codigo usado del ejemplo "Box-Triangle"
+//-----------------
 
 //nuevas funciones
 function createDiamond(gl){
