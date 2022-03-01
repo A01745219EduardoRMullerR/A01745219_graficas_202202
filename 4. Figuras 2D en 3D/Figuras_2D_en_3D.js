@@ -30,7 +30,7 @@ const fragmentShaderSource = `#version 300 es
 
         void main(void) {
         // Return the pixel color: always output white
-        fragColor = vec4(1.0, 1.0, 1.0, 1.0);
+        fragColor = vec4(1.0, 0, 0, 1.0); //Porque esta semana se estrena The Batman :D
     }`;
 
 function main() 
@@ -43,44 +43,41 @@ function main()
 
     const shaderProgram = shaderUtils.initShader(gl, vertexShaderSource, fragmentShaderSource);
 
+    // Objects are created
     let square = createSquare(gl)
     let triangle = createTriangle(gl)
     let diamond = createDiamond(gl)
     let pacmanPt1 = createUpperPacMan(gl)
     let pacmanPt2 = createLowerPacman(gl)
 
+    //-----------Square
     mat4.identity(modelViewMatrix);
-    
     mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, 0.75, -3.333]);
-
     bindShaderAttributes(gl, shaderProgram);
     draw(gl, shaderProgram, square);
     
-    mat4.identity(modelViewMatrix);
-    
+    //-----------Triangle
+    mat4.identity(modelViewMatrix); 
     mat4.translate(modelViewMatrix, modelViewMatrix, [1, 0.75, -3.333]);
-
     bindShaderAttributes(gl, shaderProgram);
     draw(gl, shaderProgram, triangle);
 
+    //-----------Diamond 
     mat4.identity(modelViewMatrix)
-    
     mat4.translate(modelViewMatrix, modelViewMatrix, [-1, -0.75, -3.333])
-
     bindShaderAttributes(gl, shaderProgram)
     draw(gl, shaderProgram, diamond)
 
-    mat4.identity(modelViewMatrix)
     
+    //---------Pacman divided into upper side and lower side
+    //-----Part 1
+    mat4.identity(modelViewMatrix)
     mat4.translate(modelViewMatrix, modelViewMatrix, [1, -0.75, -3.333])
-
     bindShaderAttributes(gl, shaderProgram)
     draw(gl, shaderProgram, pacmanPt1)
-
+    //-----Part 2
     mat4.identity(modelViewMatrix)
-    
     mat4.translate(modelViewMatrix, modelViewMatrix, [1, -0.75, -3.333])
-
     bindShaderAttributes(gl, shaderProgram)
     draw(gl, shaderProgram, pacmanPt2)
 
@@ -118,8 +115,8 @@ function initViewport(gl, canvas)
 
 function initGL(gl, canvas)
 {
-    // clear the background (with black)
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    // clear the background
+    gl.clearColor(0, 0, 0, 1.0);
 
     // Clears the color buffer; the area in GPU memory used to render the bits on screen.
     // There are several buffers, including the color, and depth buffers.
@@ -221,10 +218,10 @@ function createDiamond(gl){
     let vertexBuffer = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
     let verts = [
-       -0.5, 0, 0,
-        0, -0.5, 0,
-        0, 0.5, 0,
-        0.5, 0, 0,
+       -0.55, 0, 0,
+        0, -0.55, 0,
+        0, 0.55, 0,
+        0.55, 0, 0,
     ]
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
 
@@ -240,8 +237,8 @@ function createUpperPacMan(gl){
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
     let vertices = []
     for(var n = 45; n<=180; n ++){
-        vertices.push(.5 * Math.cos(n / (180/Math.PI)))
-        vertices.push(.5 * Math.sin(n / (180/Math.PI)))
+        vertices.push(.55 * Math.cos(n / (180/Math.PI)))
+        vertices.push(.55 * Math.sin(n / (180/Math.PI)))
         vertices.push(0)
     }
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
@@ -254,8 +251,8 @@ function createLowerPacman(gl){
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
     let vertices = []
     for(var n = 180; n<=315; n ++){
-        vertices.push(.5 * Math.cos(n / (180/Math.PI)))
-        vertices.push(.5 * Math.sin(n / (180/Math.PI)))
+        vertices.push(.55 * Math.cos(n / (180/Math.PI)))
+        vertices.push(.55 * Math.sin(n / (180/Math.PI)))
         vertices.push(0)
 
     }
