@@ -23,7 +23,7 @@ const vertexShaderSource = `#version 300 es
         void main(void) {
     		// Return the transformed and projected vertex value
             gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPos, 1.0);
-            color = vertexColor * 0.8;
+            color = vertexColor * 0.7;
         }`;
 
 const fragmentShaderSource = `#version 300 es
@@ -435,14 +435,14 @@ function createOctahedron(gl, translation, rotationAxis) {
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
 
     let faceColors = [
-        [1.0, 0.0, 1.0, 1.0],
-        [0.0, 1.0, 0.2, 1.0],
-        [1.0, 0.0, 0.5, 1.0],
-        [1.0, 0.5, 0.4, 1.0],
+        [0.0, 0.1, 1.0, 1.0],
+        [0.0, 0.2, 0.2, 1.0],
+        [0.8, 0.0, 0.5, 1.0],
+        [0.7, 0.25, 0.4, 1.0],
         [0.5, 0.8, 0.3, 1.0],
-        [1.0, 0.6, 0.2, 1.0],
-        [1.0, 0.6, 1.0, 1.0],
-        [0.8, 0.1, 0.4, 1.0]
+        [0.7, 0.6, 0.8, 1.0],
+        [0.7, 0.6, 0.2, 1.0],
+        [0.8, 0.41, 0.4, 1.0]
     ];
 
     // Each vertex must have the color information, that is why the same color is concatenated 4 times, one for each vertex of the cube's face.
@@ -481,7 +481,7 @@ function createOctahedron(gl, translation, rotationAxis) {
     mat4.translate(octahedron.modelViewMatrix, octahedron.modelViewMatrix, translation);
 
     var counter = 0
-    var upOrDown = true
+    var Dannup = true
     var y = 0
 
     octahedron.update = function () {
@@ -489,23 +489,23 @@ function createOctahedron(gl, translation, rotationAxis) {
         let deltat = now - this.currentTime
         this.currentTime = now
         let fract = deltat / duration
-        let angle = Math.PI * 2 * fract
-        let counterMAX = 400
+        let angle = Math.PI * 10 * fract
+        let maxY = 450
 
-        if (counter <= counterMAX && upOrDown) {
+        if (counter <= maxY && Dannup) {
             counter += 1
-            y = .01
-            if (counter >= counterMAX) {
+            y = 0.01
+            if (counter >= maxY) {
                 counter = 0
-                upOrDown = false
+                Dannup = false
             }
         } 
-        else if (counter <= counterMAX * 2 && !upOrDown) {
+        else if (counter <= maxY * 2 && !Dannup) {
             counter += 1
             y = -0.01
-            if (counter >= counterMAX) {
+            if (counter >= maxY) {
                 counter = 0
-                upOrDown = true
+                Dannup = true
             }
         }
 
@@ -577,6 +577,8 @@ function update(gl, shaderProgram, objs) {
     //     objs[i].update();
 }
 
+///------------------------Escutoide
+
 function createScutoid(gl, translation, rotationAxis) {
     // Vertex Data
     let vertexBuffer;
@@ -595,9 +597,9 @@ function createScutoid(gl, translation, rotationAxis) {
         -1, 0, -0.5,
         1, 0.6, -0.7,
         1, 0, -0.5,
-        -1, 0.62, -0.7,
+        -1, 0.6, -0.7,
         -1, 0, -0.5,
-        1, 0.62, 0.7,
+        1, 0.6, 0.7,
         1, 0, 0.5,
         -1, 0.6, 0.7,
         -1, 0, 0.5,
@@ -611,7 +613,7 @@ function createScutoid(gl, translation, rotationAxis) {
         -0.4, 1.4, 0,
         -1, 0.5, 0,
         -1, 1, 0.5,
-        -1, 0.62, 0.7,
+        -1, 0.6, 0.7,
         -1, 0, 0.5,
         -1, 0, -0.5,
         -1, 0.6, -0.7,
@@ -634,14 +636,14 @@ function createScutoid(gl, translation, rotationAxis) {
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
 
     let faceColors = [
-        [0, 1.0, 0, 1.0], //base pentagonal
+        [0.2, 1.0, 0.4, 0.8], //base pentagonal
         [1.0, 0, 0, 1.0], 
         [1.0, 0, 0, 1.0], 
         [1.0, 0, 0, 1.0], 
         [1.0, 0, 0, 1.0],  
         [1.0, 0, 0, 1.0], 
-        [0, 0, 1.0, 1.0], //base hexagonal 
-        [1.0, 1.0, .5, 1.0], //triangulo que une el lado extra de la base hexagonal 
+        [0, 0, 1.0, 0.8], //base hexagonal 
+        [1.0, 1.0, 0.2, 1.0], //triangulo que une el lado extra de la base hexagonal 
         [1.0, 0, 0, 1.0], 
         [1.0, 0, 0, 1.0],              
         [1.0, 0, 0, 1.0]  
@@ -695,7 +697,7 @@ function createScutoid(gl, translation, rotationAxis) {
         let deltat = now - this.currentTime
         this.currentTime = now
         let fract = deltat / duration
-        let angle = Math.PI * 2 * fract
+        let angle = Math.PI * 8 * fract
 
         mat4.rotate(this.modelViewMatrix, this.modelViewMatrix, angle, rotationAxis);
     }
