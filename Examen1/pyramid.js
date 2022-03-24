@@ -227,7 +227,8 @@ function bindShaderAttributes(glCtx, shaderProgram)
 function Sierpinski(vertex1, vertex2, vertex3, vertexArray, step) {
 
     if (step <= 1) {
-        vertexArray.push(vertex1[0], vertex1[1], vertex1[2],
+        vertexArray.push(
+            vertex1[0], vertex1[1], vertex1[2],
             vertex2[0], vertex2[1], vertex2[2], 
             vertex3[0], vertex3[1], vertex3[2])
     }
@@ -257,6 +258,13 @@ function Sierpinski(vertex1, vertex2, vertex3, vertexArray, step) {
     }
 }
 
+function playAudio(){
+    let music = document.createElement("audio")
+    music.src = "SomethingInTheWay.mp3"
+    music.play()
+    music.playbackRate = 1
+    console.log('Its playing :D')
+}
 
 function main()
 {
@@ -267,6 +275,8 @@ function main()
     initGL(glCtx, canvas);
 
     let pyramid = createPyramid(glCtx,  [0, 0, -3], [0, 1, 0]);
+
+    playAudio()
 
     shaderProgram = initShader(glCtx, vertexShaderSource, fragmentShaderSource);
     bindShaderAttributes(glCtx, shaderProgram);
