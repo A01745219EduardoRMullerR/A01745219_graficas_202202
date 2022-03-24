@@ -262,7 +262,6 @@ function playAudio(){
     let music = document.createElement("audio")
     music.src = "SomethingInTheWay.mp3"
     music.play()
-    music.playbackRate = 1
     console.log('Its playing :D')
 }
 
