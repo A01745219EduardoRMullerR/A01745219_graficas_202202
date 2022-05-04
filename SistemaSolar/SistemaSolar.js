@@ -33,8 +33,6 @@ function main()
 
     createScene(canvas);
     
-    initControls();
-
     update();
 }
 
@@ -150,27 +148,7 @@ async function loadObjMtl(objModelUrl, objectList)
     }
 }
 
-function initControls()
-{
-    document.querySelector('#directionalLight').addEventListener('change', (event)=>{
-        directionalLight.color.set(event.target.value);
-    });
-    document.querySelector('#directionalLight').addEventListener('input', (event)=>{
-        directionalLight.color.set(event.target.value);
-    });
-    document.querySelector('#spotLight').addEventListener('change', (event)=>{
-        spotLight.color.set(event.target.value);
-    });
-    document.querySelector('#spotLight').addEventListener('input', (event)=>{
-        spotLight.color.set(event.target.value);
-    });
-    document.querySelector('#ambientLight').addEventListener('change', (event)=>{
-        ambientLight.color.set(event.target.value);
-    });
-    document.querySelector('#ambientLight').addEventListener('input', (event)=>{
-        ambientLight.color.set(event.target.value);
-    });
-}
+
 
 function animate() 
 {
@@ -295,12 +273,12 @@ function createScene(canvas)
     scene.add(sphere);
 
     //OUR MOON----------------------------------------------------------------------------
-    geometry = new THREE.SphereGeometry( 0.2, 64, 32 );
+    geometry = new THREE.SphereGeometry( 0.16, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/moon.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
-    sphere.position.z = 0.8
-    sphere.position.x = 7
+    sphere.position.z = 0.86
+    sphere.position.x = 7.2
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
