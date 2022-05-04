@@ -165,7 +165,7 @@ function animate()
 
     for(const object in objectList){
         if(object){
-
+            
         }
     }
 }
@@ -215,24 +215,8 @@ function createScene(canvas)
     scene.background = background_texture
 
     // Create and add all the lights
-    directionalLight.position.set(0,0,0);
-    directionalLight.target.position.set(0,0,0);
-    directionalLight.castShadow = true;
-    scene.add(directionalLight);
-
-    spotLight = new THREE.SpotLight (0xaaaaaa);
-    spotLight.position.set(2, 8, 15);
-    spotLight.target.position.set(-2, 0, -2);
-    scene.add(spotLight);
-
-    spotLight.castShadow = true;
-
-    spotLight.shadow.camera.near = 1;
-    spotLight.shadow. camera.far = 200;
-    spotLight.shadow.camera.fov = 45;
-    
-    spotLight.shadow.mapSize.width = SHADOW_MAP_WIDTH;
-    spotLight.shadow.mapSize.height = SHADOW_MAP_HEIGHT;
+    const point_light = new THREE.PointLight(0xFFFFFF, 2, 300)
+    scene.add(point_light)
 
     ambientLight = new THREE.AmbientLight ( 0x444444, 0.8);
     scene.add(ambientLight);
