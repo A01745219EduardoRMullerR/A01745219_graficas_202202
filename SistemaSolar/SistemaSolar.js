@@ -7,8 +7,6 @@
 
 import * as THREE from '../libs/three.js/three.module.js'
 import { OrbitControls } from '../libs/three.js/controls/OrbitControls.js';
-import { OBJLoader } from '../libs/three.js/loaders/OBJLoader.js';
-import { MTLLoader } from '../libs/three.js/loaders/MTLLoader.js';
 
 let renderer = null, scene = null, camera = null, group = null, objectList = [], orbitControls = null;
 
@@ -17,15 +15,6 @@ let currentTime = Date.now();
 
 let directionalLight = null, spotLight = null, ambientLight = null;
 
-let mapUrl = "../images/checker_large.gif";
-
-let SHADOW_MAP_WIDTH = 1024, SHADOW_MAP_HEIGHT = 1024;
-
-let objMtlModelUrl = {obj:'../models/obj/Penguin_obj/penguin.obj', mtl:'../models/obj/Penguin_obj/penguin.mtl'};
-
-let objModelUrl = {obj:'../models/obj/cerberus/Cerberus.obj', map:'../models/obj/cerberus/Cerberus_A.jpg', normalMap:'../models/obj/cerberus/Cerberus_N.jpg', specularMap: '../models/obj/cerberus/Cerberus_M.jpg'};
-
-let jsonModelUrl = { url:'../models/json/teapot-claraio.json' };
 
 function main()
 {
@@ -35,120 +24,6 @@ function main()
     
     update();
 }
-
-function onError ( err ){ console.error( err ); };
-
-function onProgress( xhr ) 
-{
-    if ( xhr.lengthComputable ) {
-
-        const percentComplete = xhr.loaded / xhr.total * 100;
-        console.log( xhr.target.responseURL, Math.round( percentComplete, 2 ) + '% downloaded' );
-    }
-}
-
-async function loadJson(url, objectList)
-{
-    try 
-    {
-        const object = await new THREE.ObjectLoader().loadAsync(url, onProgress, onError);
-
-        object.castShadow = true;
-        object.receiveShadow = false;
-
-        object.position.y = -1;
-        object.position.x = 1.5;
-
-        object.name = "jsonObject";
-
-        objectList.push(object);
-        scene.add(object);
-    }
-    catch (err) 
-    {
-        return onError(err);
-    }
-}
-
-async function loadObj(objModelUrl, objectList)
-{
-    try
-    {
-        const object = await new OBJLoader().loadAsync(objModelUrl.obj, onProgress, onError);
-
-        let texture = objModelUrl.hasOwnProperty('normalMap') ? new THREE.TextureLoader().load(objModelUrl.map) : null;
-        let normalMap = objModelUrl.hasOwnProperty('normalMap') ? new THREE.TextureLoader().load(objModelUrl.normalMap) : null;
-        let specularMap = objModelUrl.hasOwnProperty('specularMap') ? new THREE.TextureLoader().load(objModelUrl.specularMap) : null;
-
-        console.log(object);
-        
-        // object.traverse(function (child) 
-        // {
-            for(const child of object.children)
-            {
-                //     if (child.isMesh)
-                child.castShadow = true;
-                child.receiveShadow = true;
-                child.material.map = texture;
-                child.material.normalMap = normalMap;
-                child.material.specularMap = specularMap;
-            }
-        // });
-
-        object.scale.set(3, 3, 3);
-        object.position.z = -3;
-        object.position.x = -4.5;
-        object.rotation.y = -3;
-        object.name = "objObject";
-        
-        objectList.push(object);
-        scene.add(object);
-    }
-    catch (err) 
-    {
-        onError(err);
-    }
-}
-
-async function loadObjMtl(objModelUrl, objectList)
-{
-    try
-    {
-        const mtlLoader = new MTLLoader();
-
-        const materials = await mtlLoader.loadAsync(objModelUrl.mtl, onProgress, onError);
-
-        materials.preload();
-        
-        const objLoader = new OBJLoader();
-
-        objLoader.setMaterials(materials);
-
-        const object = await objLoader.loadAsync(objModelUrl.obj, onProgress, onError);
-    
-        object.traverse(function (child) {
-            if (child.isMesh)
-            {
-                child.castShadow = true;
-                child.receiveShadow = true;
-            }
-        });
-        
-        console.log(object);
-
-        object.position.y += -1;
-        object.scale.set(0.15, 0.15, 0.15);
-
-        objectList.push(object);
-        scene.add(object);
-    }
-    catch (err)
-    {
-        onError(err);
-    }
-}
-
-
 
 function animate() 
 {
