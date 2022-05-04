@@ -248,39 +248,17 @@ function createScene(canvas)
     ambientLight = new THREE.AmbientLight ( 0x444444, 0.8);
     scene.add(ambientLight);
     
-    // Create the objects
-    loadObj(objModelUrl, objectList);
 
-    loadJson(jsonModelUrl.url, objectList);
-
-    loadObjMtl(objMtlModelUrl, objectList);
-
-    // Create a group to hold the objects
-    group = new THREE.Object3D;
-    scene.add(group);
-
-    // Create a texture map
-    const map = new THREE.TextureLoader().load(mapUrl);
-    map.wrapS = map.wrapT = THREE.RepeatWrapping;
-    map.repeat.set(8, 8);
-
-    // Put in a ground plane to show off the lighting
-    let geometry = new THREE.PlaneGeometry(200, 200, 50, 50);
-    let mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({map:map, side:THREE.DoubleSide}));
-
-    mesh.rotation.x = -Math.PI / 2;
-    mesh.position.y = -4.02;
-    mesh.castShadow = false;
-    mesh.receiveShadow = true;
-    group.add( mesh );
-    
-    // Create the cylinder 
-    geometry = new THREE.CylinderGeometry(1, 2, 2, 50, 10);
-    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial());
-    mesh.position.y = -3;
-    mesh.castShadow = false;
-    mesh.receiveShadow = true;    
-    group.add( mesh );
+    //create a sphere
+    let geometry = new THREE.SphereGeometry( 1, 64, 32 );
+    let texture = new THREE.TextureLoader().load('Textures/mercury.jpg');
+    let material = new THREE.MeshBasicMaterial({map:texture})
+    let sphere = new THREE.Mesh( geometry, material );
+    sphere.position.y = 2
+    sphere.castShadow = false
+    sphere.receiveShadow = true
+    scene.add(sphere);
 }
+
 
 main();
