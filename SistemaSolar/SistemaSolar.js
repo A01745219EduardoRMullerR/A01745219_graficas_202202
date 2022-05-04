@@ -338,6 +338,14 @@ function createScene(canvas)
     sphere.receiveShadow = true
     scene.add(sphere);
 
+    //SATURN'S RING ----------------------------------------------------------------------------------------------------
+    geometry = new THREE.RingGeometry( 1.55, 2.2, 32 );
+    texture = new THREE.TextureLoader().load('Textures/saturn ring.png')
+    material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide} );
+    let ring = new THREE.Mesh( geometry, material );
+    ring.position.x = 16;
+    scene.add( ring );
+
     //URANUS ------------------------------------------------------------------------
     geometry = new THREE.SphereGeometry( 0.51, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/uranus.jpg');
