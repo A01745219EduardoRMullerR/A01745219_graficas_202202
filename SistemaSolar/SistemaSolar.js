@@ -333,7 +333,7 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 16
+    sphere.position.x = 18
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -343,7 +343,8 @@ function createScene(canvas)
     texture = new THREE.TextureLoader().load('Textures/saturn ring.png')
     material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide} );
     let ring = new THREE.Mesh( geometry, material );
-    ring.position.x = 16;
+    ring.position.x = 18;
+    ring.rotation.x = Math.PI / 1.77
     scene.add( ring );
 
     //URANUS ------------------------------------------------------------------------
@@ -352,7 +353,7 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 19.5
+    sphere.position.x = 22
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -363,7 +364,7 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 21
+    sphere.position.x = 25
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -374,11 +375,29 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 22
+    sphere.position.x = 28
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
+
+    //Pluto's moons --------------------------------------------------------------------
+    for (let i=0;i<=7; i++){
+        geometry = new THREE.SphereGeometry( 0.04, 64, 32 );
+        texture = new THREE.TextureLoader().load('Textures/moon.jpg');
+        material = new THREE.MeshBasicMaterial({map:texture})
+        sphere = new THREE.Mesh( geometry, material );
+        sphere.position.z = getRndInteger(-1, 1);
+        sphere.position.y = getRndInteger(-1, 1)
+        sphere.position.x = getRndInteger(27, 29)
+        sphere.castShadow = false
+        sphere.receiveShadow = true
+        scene.add(sphere);
+    }
 }
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
 
 
 main();
