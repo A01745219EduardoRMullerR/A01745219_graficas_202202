@@ -272,6 +272,7 @@ function createScene(canvas)
     sphere.receiveShadow = true
     scene.add(sphere);
 
+    //VENUS ---------------------------------------------------------------------------
     geometry = new THREE.SphereGeometry( 0.4, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/venus.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
@@ -282,6 +283,7 @@ function createScene(canvas)
     sphere.receiveShadow = true
     scene.add(sphere);
 
+    //OUR GLORIOUS EARTH --------------------------------------------------------------------
     geometry = new THREE.SphereGeometry( 0.45, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/earth.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
@@ -292,6 +294,18 @@ function createScene(canvas)
     sphere.receiveShadow = true
     scene.add(sphere);
 
+    //OUR MOON----------------------------------------------------------------------------
+    geometry = new THREE.SphereGeometry( 0.2, 64, 32 );
+    texture = new THREE.TextureLoader().load('Textures/moon.jpg');
+    material = new THREE.MeshBasicMaterial({map:texture})
+    sphere = new THREE.Mesh( geometry, material );
+    sphere.position.z = 0.8
+    sphere.position.x = 7
+    sphere.castShadow = false
+    sphere.receiveShadow = true
+    scene.add(sphere);
+
+    //MARS home of the Martian Manhunter---------------------------------------------------------------------------------------
     geometry = new THREE.SphereGeometry( 0.25, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/mars.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
@@ -302,18 +316,9 @@ function createScene(canvas)
     sphere.receiveShadow = true
     scene.add(sphere);
 
-    geometry = new THREE.SphereGeometry( 0.45, 64, 32 );
+    //JUPITER ----------------------------------------------------------------------------------------------
+    geometry = new THREE.SphereGeometry( 1.5, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/jupiter.jpg');
-    material = new THREE.MeshBasicMaterial({map:texture})
-    sphere = new THREE.Mesh( geometry, material );
-    sphere.position.y = 0
-    sphere.position.x = 11
-    sphere.castShadow = false
-    sphere.receiveShadow = true
-    scene.add(sphere);
-
-    geometry = new THREE.SphereGeometry( 0.45, 64, 32 );
-    texture = new THREE.TextureLoader().load('Textures/saturn.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
@@ -322,22 +327,46 @@ function createScene(canvas)
     sphere.receiveShadow = true
     scene.add(sphere);
 
-    geometry = new THREE.SphereGeometry( 0.45, 64, 32 );
-    texture = new THREE.TextureLoader().load('Textures/uranus.jpg');
+    //SATURN ---------------------------------------------------------------------------------------------------
+    geometry = new THREE.SphereGeometry( 1.15, 64, 32 );
+    texture = new THREE.TextureLoader().load('Textures/saturn.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 15
+    sphere.position.x = 16
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
 
-    geometry = new THREE.SphereGeometry( 0.45, 64, 32 );
+    //URANUS ------------------------------------------------------------------------
+    geometry = new THREE.SphereGeometry( 0.51, 64, 32 );
+    texture = new THREE.TextureLoader().load('Textures/uranus.jpg');
+    material = new THREE.MeshBasicMaterial({map:texture})
+    sphere = new THREE.Mesh( geometry, material );
+    sphere.position.y = 0
+    sphere.position.x = 19.5
+    sphere.castShadow = false
+    sphere.receiveShadow = true
+    scene.add(sphere);
+
+    //NEPTUNE ------------------------------------------------------------------------
+    geometry = new THREE.SphereGeometry( 0.49, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/neptune.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 17
+    sphere.position.x = 21
+    sphere.castShadow = false
+    sphere.receiveShadow = true
+    scene.add(sphere);
+
+    //PLUTO ------------------------------------------------------------------------------------------
+    geometry = new THREE.SphereGeometry( 0.1, 64, 32 );
+    texture = new THREE.TextureLoader().load('Textures/pluto.jpg');
+    material = new THREE.MeshBasicMaterial({map:texture})
+    sphere = new THREE.Mesh( geometry, material );
+    sphere.position.y = 0
+    sphere.position.x = 22
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
