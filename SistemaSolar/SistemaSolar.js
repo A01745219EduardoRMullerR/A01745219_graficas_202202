@@ -250,17 +250,19 @@ function createScene(canvas)
     
 
     //create a sphere
+    //MERCURY --------------------------------------------------
     let geometry = new THREE.SphereGeometry( 0.2, 64, 32 );
     let texture = new THREE.TextureLoader().load('Textures/mercury.jpg');
     let material = new THREE.MeshBasicMaterial({map:texture})
     let sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 2
+    sphere.position.x = 4
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
 
-    geometry = new THREE.SphereGeometry( 2, 64, 32 );
+    //THE SUN ---------------------------------------------------------------------------------
+    geometry = new THREE.SphereGeometry( 3.3, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/sun.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
@@ -270,32 +272,32 @@ function createScene(canvas)
     sphere.receiveShadow = true
     scene.add(sphere);
 
-    geometry = new THREE.SphereGeometry( 0.21, 64, 32 );
+    geometry = new THREE.SphereGeometry( 0.4, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/venus.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 2
-    sphere.castShadow = false
-    sphere.receiveShadow = true
-    scene.add(sphere);
-
-    geometry = new THREE.SphereGeometry( 0.4, 64, 32 );
-    texture = new THREE.TextureLoader().load('Textures/earth.jpg');
-    material = new THREE.MeshBasicMaterial({map:texture})
-    sphere = new THREE.Mesh( geometry, material );
-    sphere.position.y = 0
-    sphere.position.x = 3
+    sphere.position.x = 5.5
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
 
     geometry = new THREE.SphereGeometry( 0.45, 64, 32 );
+    texture = new THREE.TextureLoader().load('Textures/earth.jpg');
+    material = new THREE.MeshBasicMaterial({map:texture})
+    sphere = new THREE.Mesh( geometry, material );
+    sphere.position.y = 0
+    sphere.position.x = 7
+    sphere.castShadow = false
+    sphere.receiveShadow = true
+    scene.add(sphere);
+
+    geometry = new THREE.SphereGeometry( 0.25, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/mars.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 4
+    sphere.position.x = 9
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -305,7 +307,7 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 6
+    sphere.position.x = 11
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -315,7 +317,7 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 7
+    sphere.position.x = 13
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -325,7 +327,7 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 8
+    sphere.position.x = 15
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -335,7 +337,7 @@ function createScene(canvas)
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
     sphere.position.y = 0
-    sphere.position.x = 9
+    sphere.position.x = 17
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
