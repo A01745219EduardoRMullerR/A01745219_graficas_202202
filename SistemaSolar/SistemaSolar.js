@@ -201,10 +201,14 @@ function createScene(canvas)
     orbitControls = new OrbitControls(camera, renderer.domElement);
         
     // Add a directional light to show off the object
-    directionalLight = new THREE.DirectionalLight( 0xaaaaaa, 1);
+    directionalLight = new THREE.DirectionalLight( 0xaaaaaa, 4);
+
+    //Background
+    const background_texture = new THREE.TextureLoader().load('Textures/stars_background.jpg')
+    scene.background = background_texture
 
     // Create and add all the lights
-    directionalLight.position.set(.5, 1, -3);
+    directionalLight.position.set(0,0,0);
     directionalLight.target.position.set(0,0,0);
     directionalLight.castShadow = true;
     scene.add(directionalLight);
@@ -226,8 +230,6 @@ function createScene(canvas)
     ambientLight = new THREE.AmbientLight ( 0x444444, 0.8);
     scene.add(ambientLight);
     
-
-    //create a sphere
     //MERCURY --------------------------------------------------
     let geometry = new THREE.SphereGeometry( 0.2, 64, 32 );
     let texture = new THREE.TextureLoader().load('Textures/mercury.jpg');
@@ -244,8 +246,6 @@ function createScene(canvas)
     texture = new THREE.TextureLoader().load('Textures/sun.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
-    sphere.position.y = 0
-    sphere.position.x = 0
     sphere.castShadow = false
     sphere.receiveShadow = true
     scene.add(sphere);
@@ -273,7 +273,7 @@ function createScene(canvas)
     scene.add(sphere);
 
     //OUR MOON----------------------------------------------------------------------------
-    geometry = new THREE.SphereGeometry( 0.16, 64, 32 );
+    geometry = new THREE.SphereGeometry( 0.065, 64, 32 );
     texture = new THREE.TextureLoader().load('Textures/moon.jpg');
     material = new THREE.MeshBasicMaterial({map:texture})
     sphere = new THREE.Mesh( geometry, material );
@@ -296,7 +296,7 @@ function createScene(canvas)
 
     //Mars' moons ----------------------------------------------------------------------------------------------------
     for (let i=0;i<=2; i++){
-        geometry = new THREE.SphereGeometry( 0.02, 64, 32 );
+        geometry = new THREE.SphereGeometry( 0.042, 64, 32 );
         texture = new THREE.TextureLoader().load('Textures/moon.jpg');
         material = new THREE.MeshBasicMaterial({map:texture})
         sphere = new THREE.Mesh( geometry, material );
