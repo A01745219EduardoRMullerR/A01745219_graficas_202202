@@ -1,0 +1,11 @@
+6. Modifica los archivos examen2_soldado.html y examen2_soldado.js para que la escena muestre algo similar a 
+lo que aparece en la Figura 1. También puedes ver un ejemplo del programa funcionando en el video anexo llamado 
+soldado.mp4. La escena consiste de un modelo 3d de un soldado que tiene la animación de correr ejecutándose. La escena 
+también tiene luces, y sombras. La cámara se puede mover utilizando un Orbit Controller.
+
+7. En base a los archivos examen2_game.html y examen2_game.js, desarrolla un juego sencillo que cree cubos de manera aleatoria, 
+y que al darles click con el mouse se quiten de la escena y se suma un punto al puntaje. Puedes ver un ejemplo en la Figura 2, 
+y en el video game.mp4. Los cubos se generan aleatoriamente entre -40 y 40 en X, entre 0 y 40 en Y, y en -80 en Z. 
+Utilizando setInterval (Enlaces a un sitio externo.) crea un cubo cada 0.5 segundos. Los cubos van a moverse sobre Z en dirección a la cámara. 
+Usa raycasting para darle click a los cubos, y para quitarlos de la escena. Se consideran hasta 5 puntos extra si cuando los cubos pasan de un punto específico en Z, 
+se quitan de la escena automáticamente, y al pasar esto, se resta un punto al puntaje.
