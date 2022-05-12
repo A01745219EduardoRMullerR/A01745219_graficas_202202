@@ -107,7 +107,7 @@ function main()
 
     createScene(canvas);
 
-    loadGLTF('./models/Soldier.glb');
+    loadGLTF('../models/Soldier.glb');
 
     update();
 }
