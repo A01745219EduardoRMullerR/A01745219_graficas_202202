@@ -10,7 +10,7 @@ let idleAction = null;
 let mixer = null;
 let currentTime = Date.now();
 
-const mapUrl = "../../images/checker_large.gif";
+const mapUrl = "../images/checker_large.gif";
 
 const SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 
