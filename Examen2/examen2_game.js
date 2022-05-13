@@ -136,6 +136,10 @@ function onDocumentPointerDown( event ){
     }
 }
 
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+  }
+
 function addCubes()
 {
 
@@ -145,7 +149,7 @@ function addCubes()
         let cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )
         
         cube.name = 'Cube ' + i;
-        cube.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 60 - 10);
+        cube.position.set(randomInt(-40, 40), randomInt(0, 40) , -80)
             
         cubes.push(cube)
         root.add(cube)
@@ -157,7 +161,7 @@ function updateCubes(cube){
     root.remove(cube)
     let new_cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )    
     new_cube.name = 'Extra Cube ' + randomCubes + score;
-    new_cube.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 60 - 10);
+    new_cube.position.set(randomInt(-40, 40), randomInt(0, 40) , -80)
         
     cubes.push(new_cube)
     root.add(new_cube)
