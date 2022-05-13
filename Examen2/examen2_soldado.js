@@ -39,6 +39,8 @@ async function loadGLTF(gltfModelUrl)
             if(model.isMesh)
                 model.castShadow = true;            
         });
+
+        scene.add(object)
              
     }
     catch(err)
@@ -59,7 +61,7 @@ function animate()
 
 function update() 
 {
-    requestAnimationFrame(function() { update(); });
+    requestAnimationFrame(() =>  update());
     
     renderer.render( scene, camera );
 
