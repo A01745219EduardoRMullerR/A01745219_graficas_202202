@@ -39,7 +39,7 @@ function createScene(canvas)
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
-    camera.position.set(0, 15, 125);
+    camera.position.set(0, 25, 85);
     scene.add(camera);
     
     root = new THREE.Object3D;
