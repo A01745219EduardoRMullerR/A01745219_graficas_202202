@@ -40,7 +40,9 @@ function createScene(canvas)
     
     root = new THREE.Object3D;
 
-    addCubes()
+    cubes.forEach(cube => {
+        root.add(cube)
+    });
     
     directionalLight = new THREE.DirectionalLight( 0xaaaaaa, 1);
     directionalLight.position.set(0, 5, 100);
@@ -122,18 +124,16 @@ function onDocumentPointerDown(event)
 function addCubes()
 {
     const geometry = new THREE.BoxGeometry( 5, 5, 5 );
-    let randomCubes = (Math.random * 10) +1
-    
+    let randomCubes = (Math.random() * 15) + 5
+
     for ( let i = 0; i <= randomCubes; i ++ ) 
     {
-        const object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
+        const cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
         
-        object.name = 'Cube' + i;
-        object.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 40 - 20);
+        cube.name = 'Cube' + i;
+        cube.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 40 - 20);
             
-        cubes.push(object)
-        root.add(object)
-        console.log("Cubes: " + cubes)
+        cubes.push(cube)
     }
 
 }
@@ -142,9 +142,9 @@ function main()
 {
     const canvas = document.getElementById("webglcanvas");
 
-    createScene(canvas);
-
     addCubes();
+
+    createScene(canvas);
 
     update();
 }
