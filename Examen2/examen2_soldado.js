@@ -47,7 +47,7 @@ async function loadGLTF(gltfModelUrl)
         result.animations.forEach(element => {
             soldier_actions[element.name] = new THREE.AnimationMixer( scene ).clipAction(element, object);
         });
-        soldier_actions['idle'].play()
+        //soldier_actions['idle'].play()
              
     }
     catch(err)
@@ -62,9 +62,9 @@ function animate()
     const deltat = now - currentTime;
     currentTime = now;
 
-    if(object && soldier_actions[animation]){
+    /*if(object && soldier_actions[animation]){
         soldier_actions[animation].getMixer().update(deltat * 0.001);
-    }
+    }*/
 }
 
 function update() 
