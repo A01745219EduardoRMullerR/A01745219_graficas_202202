@@ -2,9 +2,11 @@ import * as THREE from './libs/three.module.js'
 import { OrbitControls } from './libs/controls/OrbitControls.js';
 import { GLTFLoader } from './libs/loaders/GLTFLoader.js';
 
-let renderer = null, scene = null, camera = null, orbitControls = null;
+let renderer = null, scene = null, camera = null, orbitControls = null, object = null;
 
 let spotLight = null, ambientLight = null;
+
+let soldier_actions = {};
 
 let idleAction = null;
 let mixer = null;
@@ -33,7 +35,7 @@ async function loadGLTF(gltfModelUrl)
 
         const result = await gltfLoader.loadAsync(gltfModelUrl);
 
-        const object = result.scene.children[0]
+        object = result.scene.children[0]
 
         object.traverse(model =>{
             if(model.isMesh)
@@ -41,6 +43,11 @@ async function loadGLTF(gltfModelUrl)
         });
 
         scene.add(object)
+
+        result.animations.forEach(element => {
+            soldier_actions[element.name] = new THREE.AnimationMixer( scene ).clipAction(element, object);
+        });
+        soldier_actions['idle'].play()
              
     }
     catch(err)
@@ -55,8 +62,9 @@ function animate()
     const deltat = now - currentTime;
     currentTime = now;
 
-    if(mixer)
-        mixer.update(deltat*0.001);
+    if(object && soldier_actions[animation]){
+        soldier_actions[animation].getMixer().update(deltat * 0.001);
+    }
 }
 
 function update() 
