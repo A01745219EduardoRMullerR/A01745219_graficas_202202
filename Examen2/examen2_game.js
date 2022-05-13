@@ -21,6 +21,22 @@ function animate()
     const now = Date.now();
     const deltat = now - currentTime;
     currentTime = now;
+    cubes.forEach(cube =>{
+        cube.position.z +=  0.1; 
+        if (cube.position.z > 40){
+            console.log("Points losing \nScore: " + score);
+           
+            if(score > 0){
+                score -= 1
+                console.log("Score down: " + score)
+                document.getElementById('scoreText').innerHTML = "Score: " + score 
+            } 
+
+            scene.remove(cube)
+        }
+    })
+
+    
 }
 
 function update() 
@@ -125,8 +141,8 @@ function onDocumentPointerDown( event ){
             root.remove(intersects[0].object)
             updateCubes()
             score += 1
-        console.log("Score: " + score)
-        document.getElementById('scoreText').innerHTML = "Score: " + score 
+            console.log("Score: " + score)
+            document.getElementById('scoreText').innerHTML = "Score: " + score 
         }
         
 
@@ -144,8 +160,18 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
   }
 
-function addCubes()
-{
+function addCube(i){
+        let cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )
+        
+        cube.name = 'Moving Cube ' + i;
+        cube.position.set(randomInt(-40, 40), randomInt(0, 40) , -80)
+            
+        cubes.push(cube)
+        console.log(cube.name)
+        root.add(cube)
+}
+
+function addCubes(){
 
 
     for ( let i = 0; i <= randomCubes; i ++ ) 
@@ -158,6 +184,7 @@ function addCubes()
         cubes.push(cube)
         root.add(cube)
     }
+
 
 }
 
@@ -176,6 +203,7 @@ function main()
 
     createScene(canvas);
     addCubes();
+    var cubeseverywhere = window.setInterval(function(){ addCube() }, 500);
 
     update();
 }
