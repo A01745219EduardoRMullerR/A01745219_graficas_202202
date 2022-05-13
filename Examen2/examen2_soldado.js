@@ -10,7 +10,7 @@ let idleAction = null;
 let mixer = null;
 let currentTime = Date.now();
 
-const mapUrl = "../images/checker_large.gif";
+const mapUrl = "images/checker_large.gif";
 
 const SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 
@@ -31,7 +31,9 @@ async function loadGLTF(gltfModelUrl)
     {
         const gltfLoader = new GLTFLoader();
 
-        const result = await gltfLoader.loadAsync(gltfModelUrl, onProgress, onError);
+        const result = await gltfLoader.loadAsync(gltfModelUrl);
+
+        const object = result.scene.children[0]
 
         object.traverse(model =>{
             if(model.isMesh)
@@ -78,18 +80,22 @@ function createScene(canvas)
 
     camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
     camera.position.set(-30, 15, 40);
-    scene.add(camera);
+
 
     orbitControls = new OrbitControls(camera, renderer.domElement);
         
     spotLight = new THREE.SpotLight (0xffffff, 1.5);
     spotLight.position.set(0, 40, 50);
+    scene.add(spotLight)
 
     ambientLight = new THREE.AmbientLight ( 0xffffff, 0.3);
+    scene.add(ambientLight)
 
     let map = new THREE.TextureLoader().load(mapUrl);
     map.wrapS = map.wrapT = THREE.RepeatWrapping;
     map.repeat.set(8, 8);
+
+    //loadGLTF()
 
     const geometry = new THREE.PlaneGeometry(200, 200, 50, 50);
     const floor = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({map:map, side:THREE.DoubleSide}));
@@ -107,7 +113,7 @@ function main()
 
     createScene(canvas);
 
-    loadGLTF('../models/Soldier.glb');
+    loadGLTF('models/Soldier.glb');
 
     update();
 }
@@ -131,3 +137,5 @@ window.onload = () => {
 };
 
 window.addEventListener('resize', resize, false);
+
+main();
