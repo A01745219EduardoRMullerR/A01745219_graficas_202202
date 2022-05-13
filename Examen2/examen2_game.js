@@ -22,21 +22,20 @@ function animate()
     const deltat = now - currentTime;
     currentTime = now;
     cubes.forEach(cube =>{
-        cube.position.z +=  0.1; 
+        cube.position.z +=  0.05; 
         if (cube.position.z > 40){
             console.log("Points losing \nScore: " + score);
            
-            if(score > 0){
+            /*if(score > 0){
                 score -= 1
-                console.log("Score down: " + score)
+                console.log("Now: " + now +"\nScore down: " + score)
                 document.getElementById('scoreText').innerHTML = "Score: " + score 
-            } 
+            }*/
 
             scene.remove(cube)
         }
     })
 
-    
 }
 
 function update() 
@@ -44,6 +43,8 @@ function update()
     requestAnimationFrame(function() { update(); });
     renderer.render( scene, camera );
     animate();
+    
+
 }
 
 function createScene(canvas) 
@@ -139,7 +140,7 @@ function onDocumentPointerDown( event ){
         console.log('Its a cube? ' + intersects[0].object.name.includes('Cube'))
         if(intersects[0].object.name.includes("Cube")){    
             root.remove(intersects[0].object)
-            updateCubes()
+            addNewCube()
             score += 1
             console.log("Score: " + score)
             document.getElementById('scoreText').innerHTML = "Score: " + score 
@@ -160,16 +161,6 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
   }
 
-function addCube(i){
-        let cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )
-        
-        cube.name = 'Moving Cube ' + i;
-        cube.position.set(randomInt(-40, 40), randomInt(0, 40) , -80)
-            
-        cubes.push(cube)
-        console.log(cube.name)
-        root.add(cube)
-}
 
 function addCubes(){
 
@@ -188,7 +179,7 @@ function addCubes(){
 
 }
 
-function updateCubes(){
+function addNewCube(){
     let new_cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )    
     new_cube.name = 'Extra Cube ' + randomCubes + score;
     new_cube.position.set(randomInt(-40, 40), randomInt(0, 40) , -80)
@@ -203,8 +194,7 @@ function main()
 
     createScene(canvas);
     addCubes();
-    var cubeseverywhere = window.setInterval(function(){ addCube() }, 500);
-
+    var cubeseverywhere = window.setInterval(function(){ addNewCube() }, 500);
     update();
 }
 
