@@ -7,10 +7,12 @@ let raycaster = null, mouse = new THREE.Vector2(), intersected, clicked;
 let directionalLight = null, spotLight = null, ambientLight = null;
 
 let cubes = [];
+
 let score = 0;
 
 const mapUrl = "images/checker_large.gif";
 let currentTime = Date.now();
+
 
 function animate()
 {
@@ -74,18 +76,18 @@ function createScene(canvas)
 
     scene.add( root );
 }
-
-function onDocumentPointerMove( event ) 
-{
+function onDocumentPointerMove( event ) {
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
     raycaster.setFromCamera( mouse, camera );
 
-    const intersects = raycaster.intersectObjects( scene.children );
+    const intersects = raycaster.intersectObjects( root.children);
 
     if ( intersects.length > 0 ) 
     {
+        //console.log(intersects);
+
         if ( intersected != intersects[ 0 ].object ) 
         {
             if ( intersected )
@@ -94,10 +96,10 @@ function onDocumentPointerMove( event )
             intersected = intersects[ 0 ].object;
             intersected.currentHex = intersected.material.emissive.getHex();
             intersected.material.emissive.set( 0xff0000 );
+            
         }
     } 
-    else 
-    {
+    else{
         if ( intersected ) 
             intersected.material.emissive.set( intersected.currentHex );
 
@@ -105,20 +107,34 @@ function onDocumentPointerMove( event )
     }
 }
 
-function onDocumentPointerDown(event)
-{
+function onDocumentPointerDown( event ){
     event.preventDefault();
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
     raycaster.setFromCamera( mouse, camera );
 
-    let intersects = raycaster.intersectObjects( scene.children );
+    let scoreText = document.getElementById('scoreText')
 
-    if ( intersects.length > 0 ) 
-    {
+    let intersects = raycaster.intersectObjects( root.children );
+
+    if ( intersects.length > 0 ) {
         clicked = intersects[ 0 ].object;
+        console.log("cambia de color")
+        console.log("Cube Array: " + cubes)
+        cubes.shift(intersects)
+        score += 1
+        console.log("Score: " + score)
+        scoreText.value = "Score: " + score
+
+
     } 
+    else {
+        if ( clicked ) 
+            clicked.material.emissive.set( clicked.currentHex );
+
+        clicked = null;
+    }
 }
 
 function addCubes()
@@ -131,7 +147,7 @@ function addCubes()
         const cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
         
         cube.name = 'Cube' + i;
-        cube.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 40 - 20);
+        cube.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 60 - 10);
             
         cubes.push(cube)
     }
