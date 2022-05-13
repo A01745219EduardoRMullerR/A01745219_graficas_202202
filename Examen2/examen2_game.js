@@ -9,6 +9,8 @@ let directionalLight = null, spotLight = null, ambientLight = null;
 let cubes = [];
 
 let score = 0;
+const geometry = new THREE.BoxGeometry( 5, 5, 5 );
+let randomCubes = (Math.random() * 15) + 5
 
 const mapUrl = "images/checker_large.gif";
 let currentTime = Date.now();
@@ -94,8 +96,6 @@ function onDocumentPointerMove( event ) {
                 intersected.material.emissive.set( intersected.currentHex );
 
             intersected = intersects[ 0 ].object;
-            intersected.currentHex = intersected.material.emissive.getHex();
-            intersected.material.emissive.set( 0xff0000 );
             
         }
     } 
@@ -120,12 +120,13 @@ function onDocumentPointerDown( event ){
 
     if ( intersects.length > 0 ) {
         clicked = intersects[ 0 ].object;
-        console.log("cambia de color")
+        console.log("Intersects: " + intersects[0].object.name)
         console.log("Cube Array: " + cubes)
-        cubes.shift(intersects)
+        cubes.shift(intersects[0].object.name)
         score += 1
         console.log("Score: " + score)
         scoreText.value = "Score: " + score
+        updateCubes(intersects[0].object)
 
 
     } 
@@ -139,28 +140,37 @@ function onDocumentPointerDown( event ){
 
 function addCubes()
 {
-    const geometry = new THREE.BoxGeometry( 5, 5, 5 );
-    let randomCubes = (Math.random() * 15) + 5
+
 
     for ( let i = 0; i <= randomCubes; i ++ ) 
     {
-        const cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
+        let cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )
         
-        cube.name = 'Cube' + i;
+        cube.name = 'Cube ' + i;
         cube.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 60 - 10);
             
         cubes.push(cube)
+        root.add(cube)
     }
 
+}
+
+function updateCubes(cube){
+    root.remove(cube)
+    let new_cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )    
+    new_cube.name = 'Extra Cube ' + randomCubes + score;
+    new_cube.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 60 - 10);
+        
+    cubes.push(new_cube)
+    root.add(new_cube)
 }
 
 function main()
 {
     const canvas = document.getElementById("webglcanvas");
 
-    addCubes();
-
     createScene(canvas);
+    addCubes();
 
     update();
 }
