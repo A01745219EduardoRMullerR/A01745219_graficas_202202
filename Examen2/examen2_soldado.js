@@ -1,12 +1,12 @@
+"use strict"
 import * as THREE from './libs/three.module.js'
 import { OrbitControls } from './libs/controls/OrbitControls.js';
 import { GLTFLoader } from './libs/loaders/GLTFLoader.js';
 
-let renderer = null, scene = null, camera = null, orbitControls = null, object = null;
+let renderer = null, scene = null, camera = null, orbitControls = null, soldier = null;
 
 let spotLight = null, ambientLight = null;
 
-let soldier_actions = {};
 
 let idleAction = null;
 let mixer = null;
@@ -35,19 +35,27 @@ async function loadGLTF(gltfModelUrl)
 
         const result = await gltfLoader.loadAsync(gltfModelUrl);
 
-        object = result.scene.children[0]
+        soldier = result.scene.children[0] || result.scenes[0]
 
-        object.traverse(model =>{
+        soldier.traverse(model =>{
             if(model.isMesh)
-                model.castShadow = true;            
+                model.castShadow = true
+                model.receiveShadow = true
+                soldier.mixer = new THREE.AnimationMixer( scene )
+                soldier.action = soldier.mixer.clipAction( result.animations[1], soldier ).setDuration( 0.58 )
+                mixer = soldier.mixer
+                soldier.action.play();           
         });
 
-        scene.add(object)
 
-        result.animations.forEach(element => {
-            soldier_actions[element.name] = new THREE.AnimationMixer( scene ).clipAction(element, object);
-        });
-        //soldier_actions['idle'].play()
+        soldier.scale.set(0.1,0.1,0.1)
+        soldier.rotation.z = Math.PI
+        soldier.position.y = -4
+        scene.add(soldier)
+
+        
+
+        
              
     }
     catch(err)
@@ -62,9 +70,8 @@ function animate()
     const deltat = now - currentTime;
     currentTime = now;
 
-    /*if(object && soldier_actions[animation]){
-        soldier_actions[animation].getMixer().update(deltat * 0.001);
-    }*/
+    if(mixer)
+        mixer.update(deltat*0.001);
 }
 
 function update() 
@@ -84,6 +91,7 @@ function createScene(canvas)
 
     renderer.setSize(canvas.width, canvas.height);
     
+    renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     scene = new THREE.Scene();
@@ -96,7 +104,18 @@ function createScene(canvas)
         
     spotLight = new THREE.SpotLight (0xffffff, 1.5);
     spotLight.position.set(0, 40, 50);
+    spotLight.castShadow = true
+    spotLight.shadow.mapSize.width = SHADOW_MAP_WIDTH
+    spotLight.shadow.mapSize.height = SHADOW_MAP_HEIGHT
     scene.add(spotLight)
+
+    //SH4D0W----
+    spotLight.shadow.mapSize.width = 512; // default
+    spotLight.shadow.mapSize.height = 512; // default
+    spotLight.shadow.camera.near = 0.5; // default
+    spotLight.shadow.camera.far = 500; // default
+
+
 
     ambientLight = new THREE.AmbientLight ( 0xffffff, 0.3);
     scene.add(ambientLight)
@@ -112,6 +131,8 @@ function createScene(canvas)
 
     floor.rotation.x = -Math.PI / 2;
     floor.position.y = -4.02;
+    floor.receiveShadow = true;
+
 
     scene.add( floor );
 }
