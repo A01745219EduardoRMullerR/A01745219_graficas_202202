@@ -9,7 +9,7 @@ let directionalLight = null, spotLight = null, ambientLight = null;
 let cubes = [];
 let score = 0;
 
-const mapUrl = "../../images/checker_large.gif";
+const mapUrl = "images/checker_large.gif";
 let currentTime = Date.now();
 
 function animate()
@@ -39,6 +39,8 @@ function createScene(canvas)
     scene.add(camera);
     
     root = new THREE.Object3D;
+
+    addCubes()
     
     directionalLight = new THREE.DirectionalLight( 0xaaaaaa, 1);
     directionalLight.position.set(0, 5, 100);
@@ -117,11 +119,32 @@ function onDocumentPointerDown(event)
     } 
 }
 
+function addCubes()
+{
+    const geometry = new THREE.BoxGeometry( 5, 5, 5 );
+    let randomCubes = (Math.random * 10) +1
+    
+    for ( let i = 0; i <= randomCubes; i ++ ) 
+    {
+        const object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
+        
+        object.name = 'Cube' + i;
+        object.position.set(Math.random() * 40 - 20, Math.random() * 40 , Math.random() * 40 - 20);
+            
+        cubes.push(object)
+        root.add(object)
+        console.log("Cubes: " + cubes)
+    }
+
+}
+
 function main()
 {
     const canvas = document.getElementById("webglcanvas");
 
     createScene(canvas);
+
+    addCubes();
 
     update();
 }
