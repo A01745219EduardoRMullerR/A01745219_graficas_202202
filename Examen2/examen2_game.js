@@ -119,12 +119,16 @@ function onDocumentPointerDown( event ){
     if ( intersects.length > 0 ) {
         clicked = intersects[ 0 ].object;
         console.log("Intersects: " + intersects[0].object.name)
-        console.log("Cube Array: " + cubes)
-        cubes.shift(intersects[0].object.name)
-        score += 1
+        //console.log("Cube Array: " + cubes)
+        console.log('Its a cube? ' + intersects[0].object.name.includes('Cube'))
+        if(intersects[0].object.name.includes("Cube")){    
+            root.remove(intersects[0].object)
+            updateCubes()
+            score += 1
         console.log("Score: " + score)
-        document.getElementById('scoreText').innerHTML = "Score: " + score
-        updateCubes(intersects[0].object)
+        document.getElementById('scoreText').innerHTML = "Score: " + score 
+        }
+        
 
 
     } 
@@ -157,8 +161,7 @@ function addCubes()
 
 }
 
-function updateCubes(cube){
-    root.remove(cube)
+function updateCubes(){
     let new_cube = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) )    
     new_cube.name = 'Extra Cube ' + randomCubes + score;
     new_cube.position.set(randomInt(-40, 40), randomInt(0, 40) , -80)
