@@ -114,8 +114,6 @@ function onDocumentPointerDown( event ){
 
     raycaster.setFromCamera( mouse, camera );
 
-    let scoreText = document.getElementById('scoreText')
-
     let intersects = raycaster.intersectObjects( root.children );
 
     if ( intersects.length > 0 ) {
@@ -125,7 +123,7 @@ function onDocumentPointerDown( event ){
         cubes.shift(intersects[0].object.name)
         score += 1
         console.log("Score: " + score)
-        scoreText.value = "Score: " + score
+        document.getElementById('scoreText').innerHTML = "Score: " + score
         updateCubes(intersects[0].object)
 
 
